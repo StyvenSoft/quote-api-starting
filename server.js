@@ -18,3 +18,16 @@ app.get('/api/quotes/random', (req, res, next) => {
         quote: getRandomElement(quotes)
     });
 });
+
+app.get('/api/quotes', (req, res, next) => {
+    const queryPerson = req.query.person;
+    if (queryPerson) {
+        const filterQuotes = quotes.filter(quote => {
+            return quote.person === queryPerson;
+        });
+        res.status(200).send({ quotes: filterQuotes });
+    } else {
+        res.status(200).send({ quotes: quotes });
+    }
+});
+
